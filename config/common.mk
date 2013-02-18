@@ -18,9 +18,11 @@ PRODUCT_PACKAGES += \
     Galaxy4 \
     HoloSpiralWallpaper \
     LiveWallpapers \
+    Launcher2 \
     LiveWallpapersPicker \
     NoiseField \
     PhaseBeam \
+    BlueBalls \
     Torch
 
 # prebuilts
@@ -29,19 +31,34 @@ PRODUCT_PACKAGES += \
     LatinIME \
     LockClock \
     NovaLauncher \
-    Performance \
-    Superuser
+    PerformanceControl \
+    Superuser \
+    XposedInstaller \
+    XposedNetflixWorkaround.apk \
+    XposedSettings
 
 # tools
 PRODUCT_PACKAGES += \
     e2fsck \
     mke2fs \
-    tune2fs
+    tune2fs \
+    nano
+	
+# Openssh
+PRODUCT_PACKAGES += \
+    scp \
+    sftp \
+    ssh \
+    sshd \
+    sshd_config \
+    ssh-keygen \
+    start-ssh
 
 # themes
 include vendor/carbon/config/theme_chooser.mk
 
 # overlay
+PRODUCT_PACKAGE_OVERLAYS += vendor/carbon/overlay/dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/carbon/overlay/common
 
 # bin
@@ -64,10 +81,6 @@ PRODUCT_COPY_FILES += \
     vendor/carbon/prebuilt/common/media/LMprec_508.emd:system/media/LMprec_508.emd \
     vendor/carbon/prebuilt/common/media/PFFprec_600.emd:system/media/PFFprec_600.emd
 
-# keyboard
-PRODUCT_COPY_FILES += \
-    vendor/carbon/prebuilt/common/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
-
 # sip/voip
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
@@ -80,7 +93,7 @@ PRODUCT_COPY_FILES += \
 # version
 RELEASE = true
 CARBON_VERSION_MAJOR = 1
-CARBON_VERSION_MINOR = 0
+CARBON_VERSION_MINOR = 1
 
 ifeq ($(RELEASE),true)
     CARBON_VERSION := "Carbon-JB-v"$(CARBON_VERSION_MAJOR).$(CARBON_VERSION_MINOR)-$(shell date +%0d%^b%Y-%H%M%S)
