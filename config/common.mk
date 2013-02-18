@@ -103,8 +103,8 @@ endif
 
 # goo.im properties
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.goo.rom=carbonjb2 \
-  ro.goo.developerid=carbon \
+  ro.goo.rom=carbonjoy \
+  ro.goo.developerid=justlovejoy \
   ro.goo.version=$(shell date +%Y%m%d)
 
 PRODUCT_PROPERTY_OVERRIDES += \
