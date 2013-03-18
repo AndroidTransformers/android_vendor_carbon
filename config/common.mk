@@ -1,3 +1,5 @@
+SUPERUSER_EMBEDDED := true
+
 # brand
 PRODUCT_BRAND ?= Carbon
 
@@ -23,22 +25,31 @@ PRODUCT_PACKAGES += \
     NoiseField \
     PhaseBeam \
     BlueBalls \
-    Torch
+    Torch \
+    Superuser \
+    su \
+    Wallpapers
 
 # prebuilts
 PRODUCT_PACKAGES += \
     GooManager \
     LatinIME \
     LockClock \
-    NovaLauncher \
     PerformanceControl \
-    Superuser \
     XposedInstaller \
-    XposedNetflixWorkaround.apk \
-    XposedSettings
+    XposedNetflixWorkaround \
+    XposedPerAppSettings
+
+# Optional CM packages
+PRODUCT_PACKAGES += \
+    DSPManager \
+    libcyanogen-dsp \
+    audio_effects.conf \
+    Trebuchet
 
 # tools
 PRODUCT_PACKAGES += \
+    armzipalign \
     e2fsck \
     mke2fs \
     tune2fs \
@@ -75,7 +86,6 @@ PRODUCT_COPY_FILES += \
 
 # prebuilt
 PRODUCT_COPY_FILES += \
-    vendor/carbon/prebuilt/common/xbin/su:system/xbin/su \
     vendor/carbon/prebuilt/common/xbin/sysro:system/xbin/sysro \
     vendor/carbon/prebuilt/common/xbin/sysrw:system/xbin/sysrw \
     vendor/carbon/prebuilt/common/media/LMprec_508.emd:system/media/LMprec_508.emd \
@@ -91,21 +101,28 @@ PRODUCT_COPY_FILES += \
     vendor/carbon/config/permissions/com.carbon.nfc.enhanced.xml:system/etc/permissions/com.carbon.nfc.enhanced.xml
 
 # version
-RELEASE = true
+RELEASE = false
 CARBON_VERSION_MAJOR = 1
-CARBON_VERSION_MINOR = 1
+CARBON_VERSION_MINOR = 5-BETA
 
 ifeq ($(RELEASE),true)
-    CARBON_VERSION := "Carbon-JB-v"$(CARBON_VERSION_MAJOR).$(CARBON_VERSION_MINOR)-$(shell date +%0d%^b%Y-%H%M%S)
+    CARBON_VERSION := "CARBON-JB-v"$(CARBON_VERSION_MAJOR).$(CARBON_VERSION_MINOR)
 else
-    CARBON_VERSION := "Carbon-JB-exp"-$(shell date +%0d%^b%Y-%H%M%S)
+    CARBON_VERSION := "CARBON-JB-JOY"-$(shell date +%0d%^b%Y-%H%M%S)
 endif
 
 # goo.im properties
-PRODUCT_PROPERTY_OVERRIDES += \
-  ro.goo.rom=carbonjoy \
-  ro.goo.developerid=justlovejoy \
-  ro.goo.version=$(shell date +%Y%m%d)
+ifeq ($(RELEASE),true)
+    PRODUCT_PROPERTY_OVERRIDES += \
+        ro.goo.rom=carbonjoy \
+        ro.goo.developerid=justlovejoy \
+        ro.goo.version=$(shell date +%Y%m%d)
+else
+    PRODUCT_PROPERTY_OVERRIDES += \
+        ro.goo.rom=carbonjb2exp \
+        ro.goo.developerid=carbon \
+        ro.goo.version=$(shell date +%Y%m%d)
+endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.carbon.version=$(CARBON_VERSION)
